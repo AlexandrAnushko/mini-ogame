@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ------------------------------------------------------
+//  User
+// ------------------------------------------------------
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+
+  planets   Planet[]
+}
+
+// ------------------------------------------------------
+//  Planet
+// ------------------------------------------------------
+model Planet {
+  id        String     @id @default(cuid())
+  name      String
+  createdAt DateTime   @default(now())
+
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+
+  resources Resources?
+  buildings Buildings?
+}
+
+// ------------------------------------------------------
+//  Resources
+// ------------------------------------------------------
+model Resources {
+  id         String   @id @default(cuid())
+
+  planetId   String   @unique
+  planet     Planet   @relation(fields: [planetId], references: [id])
+
+  metal      Int      @default(0)
+  crystal    Int      @default(0)
+  deuterium  Int      @default(0)
+
+  lastUpdate DateTime @default(now())
+}
+
+// ------------------------------------------------------
+//  Buildings
+// ------------------------------------------------------
+model Buildings {
+  id         String   @id @default(cuid())
+
+  planetId   String   @unique
+  planet     Planet   @relation(fields: [planetId], references: [id])
+
+  metalMineLevel      Int @default(0)
+  crystalMineLevel    Int @default(0)
+  deuteriumSynthLevel Int @default(0)
+}
