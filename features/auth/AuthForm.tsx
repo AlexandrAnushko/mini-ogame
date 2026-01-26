@@ -1,57 +1,58 @@
 "use client";
 
-import { z } from "zod";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Input } from "@/shared/components/Input";
+import { Button } from "@/shared/components/Button";
+import { authFormSchema, AuthFormValues } from "./authSchema";
 
-export const loginFormSchema = z.object({
-  email: z.email("Некорректный адрес email"),
-  password: z
-    .string()
-    .min(6, { message: "Пароль должен содержать не менее 6 символов." }),
-});
+interface AuthFormProps {
+  title: string;
+  submitText: string;
+  apiUrl: string;
+  successText: string;
+}
 
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
-
-export default function LoginPage() {
+export function AuthForm({
+  title,
+  submitText,
+  apiUrl,
+  successText,
+}: AuthFormProps) {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginFormSchema),
+  } = useForm<AuthFormValues>({
+    resolver: zodResolver(authFormSchema),
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async ({
+  const onSubmit: SubmitHandler<AuthFormValues> = async ({
     email,
     password,
   }) => {
-    // setIsAuthLoading(true);
-    const result = await fetch("/api/auth/login", {
+    const result = await fetch(apiUrl, {
       method: "POST",
       body: JSON.stringify({ email, password }),
       credentials: "include",
     });
 
     if (result.ok) {
-      toast.success("Авторизация успешна!");
+      toast.success(successText);
       router.push("/buildings");
     } else {
       toast.error("Неверный логин или пароль");
     }
-    // setIsAuthLoading(false);
   };
 
   return (
     <div className="max-w-75 my-10 mx-auto">
-      <h2 className="text-lg font-medium mb-1">Вход</h2>
+      <h2 className="text-lg font-medium mb-1">{title}</h2>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -74,7 +75,8 @@ export default function LoginPage() {
           error={errors.password?.message}
           classNameContainer="w-full mb-3"
         />
-        <Button text="Войти" type="submit" className="max-w-[50%]" />
+
+        <Button text={submitText} type="submit" className="max-w-[60%]" />
       </form>
     </div>
   );

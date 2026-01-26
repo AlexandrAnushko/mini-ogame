@@ -1,4 +1,4 @@
-import { Link } from "@/components/ui/Link";
+import { Link } from "@/shared/components/Link";
 
 export default function HomePage() {
   return (

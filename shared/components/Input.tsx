@@ -1,5 +1,5 @@
 import { Path, UseFormRegister } from "react-hook-form";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/shared/utils/cn";
 import { InputHTMLAttributes } from "react";
 
 type InputProps<T extends object> = InputHTMLAttributes<HTMLInputElement> & {
