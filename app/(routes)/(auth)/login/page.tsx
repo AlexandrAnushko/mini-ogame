@@ -7,6 +7,7 @@ export default function LoginPage() {
       successText="Авторизация успешна!"
       submitText="Войти"
       apiUrl="/api/auth/login"
+      isLogin={true}
     />
   );
 }

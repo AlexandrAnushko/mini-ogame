@@ -13,6 +13,7 @@ interface AuthFormProps {
   submitText: string;
   apiUrl: string;
   successText: string;
+  isLogin?: boolean;
 }
 
 export function AuthForm({
@@ -20,6 +21,7 @@ export function AuthForm({
   submitText,
   apiUrl,
   successText,
+  isLogin = false,
 }: AuthFormProps) {
   const router = useRouter();
 
@@ -44,9 +46,9 @@ export function AuthForm({
 
     if (result.ok) {
       toast.success(successText);
-      router.push("/buildings");
+      router.push(isLogin ? "/resources" : "/login");
     } else {
-      toast.error("Неверный логин или пароль");
+      toast.error(isLogin ? "Неверный логин или пароль" : "Ошибка регистрации");
     }
   };
 

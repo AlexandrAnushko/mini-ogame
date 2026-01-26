@@ -34,15 +34,12 @@ export const Input = <T extends object>({
       aria-invalid={!!error}
       {...register(name)}
       data-slot="input"
-      className="w-full border border-gray-200 rounded px-3 py-2"
-      //   className={cn(
-      //     "text-white placeholder:text-white selection:bg-primary selection:text-primary-foreground dark:bg-transparent border-input flex h-9 w-full min-w-0 border-b bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-      //     !error && "focus-visible:border-accent",
-      //     "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-      //     error && "border-red-500 focus:border-red-500",
-      //     disabled && "opacity-50 cursor-not-allowed",
-      //     className,
-      //   )}
+      className={cn(
+        "border border-gray-200 rounded text-white placeholder:text-white w-full min-w-0 bg-transparent px-3 py-2 text-base transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        error && "border-red-500 focus:border-red-500",
+        disabled && "opacity-50 cursor-not-allowed",
+        className,
+      )}
       {...rest}
     />
     {error && (
