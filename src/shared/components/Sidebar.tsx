@@ -9,19 +9,18 @@ type SidebarItem = {
 
 const items: SidebarItem[] = [
   { label: "Обзор", href: "/overview", icon: <span>🏠</span> },
-  { label: "Постройки", href: "/buildings", icon: <span>🏗️</span> },
+  { label: "Сырьё", href: "/supplies", icon: <span>🏗️</span> },
+  { label: "Фабрики", href: "/facilities", icon: <span>✉️</span> },
   { label: "Исследования", href: "/research", icon: <span>🔬</span> },
   { label: "Верфь", href: "/shipyard", icon: <span>🚀</span> },
   { label: "Флот", href: "/fleet", icon: <span>🛰️</span> },
   { label: "Оборона", href: "/defense", icon: <span>🛡️</span> },
-  { label: "Торговля", href: "/trade", icon: <span>💱</span> },
   { label: "Галактика", href: "/galaxy", icon: <span>🌌</span> },
-  { label: "Сообщения", href: "/messages", icon: <span>✉️</span> },
 ];
 
 export function Sidebar() {
   return (
-    <aside className="w-56 bg-[#0d1117] border-r border-white/10 text-white h-screen p-4 flex flex-col gap-2">
+    <aside className="w-56 bg-[#0d1117] border-r border-white/10 text-white h-full p-4 flex flex-col gap-2">
       {items.map((item) => (
         <Link
           key={item.href}

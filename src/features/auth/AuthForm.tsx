@@ -46,7 +46,7 @@ export function AuthForm({
 
     if (result.ok) {
       toast.success(successText);
-      router.push(isLogin ? "/resources" : "/login");
+      router.push(isLogin ? "/supplies" : "/login");
     } else {
       toast.error(isLogin ? "Неверный логин или пароль" : "Ошибка регистрации");
     }
